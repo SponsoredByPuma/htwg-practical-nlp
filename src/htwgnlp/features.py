@@ -4,6 +4,7 @@ This module contains the CountVectorizer class for NLP tasks.
 """
 
 from collections import defaultdict
+from typing import DefaultDict
 
 import numpy as np
 import numpy.typing as npt
@@ -29,7 +30,7 @@ class CountVectorizer:
 
         """
         # TODO ASSIGNMENT-2: implement this method
-        raise NotImplementedError("This method needs to be implemented.")
+        self.word_frequencies: DefaultDict[tuple[str, int], int] = defaultdict(int)
 
     def build_word_frequencies(
         self, tweets: list[list[str]], labels: npt.NDArray[np.int_]
@@ -52,7 +53,11 @@ class CountVectorizer:
             labels (npt.NDArray[np.int_]): a column vector of corresponding class labels , e.g. `np.array([[1], [0], [1], [0]]`)
         """
         # TODO ASSIGNMENT-2: implement this method
-        raise NotImplementedError("This method needs to be implemented.")
+        for tweet, label in zip(
+            tweets, labels.ravel()
+        ):  # Flatten labels for easy iteration
+            for word in tweet:
+                self.word_frequencies[(word, label)] += 1
 
     def get_features(self, tweet: list[str]) -> np.ndarray:
         """Returns a feature vector for a given tweet.
@@ -67,4 +72,6 @@ class CountVectorizer:
         """
 
         # TODO ASSIGNMENT-2: implement this method
-        raise NotImplementedError("This method needs to be implemented.")
+        pos = sum(self.word_frequencies[(word, 1)] for word in tweet)
+        neg = sum(self.word_frequencies[(word, 0)] for word in tweet)
+        return np.array([1, pos, neg])
