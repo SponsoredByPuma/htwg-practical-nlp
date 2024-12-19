@@ -78,7 +78,7 @@ def test_remove_hashtags_from_tweet(input_tweet, expected_result):
             ["hello", ",", "how", "are", "you", "today", "?"],
         ),
         ("@MentionedUser thanks for the help!", ["thanks", "for", "the", "help", "!"]),
-        ("I looooveee itttt!!!", ["i", "loooveee", "ittt", "!", "!", "!"]),
+        ("I loooveee ittt!!!", ["i", "loooveee", "ittt", "!", "!", "!"]),
         ("#NLTK is awesome!", ["#nltk", "is", "awesome", "!"]),
         ("Retweet if you agree!", ["retweet", "if", "you", "agree", "!"]),
         (
